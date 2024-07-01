@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+    <title>Cinema - Visualizza Attore</title>
+    <style>
+        .div1{
+            text-align: center;
+            width: 100%;
+            margin: 0%;
+            padding: 15px;
+        }
+
+        .div2{
+            text-align: center;
+            font-size: x-large;
+            width: 95%;
+            margin: 0%;
+            padding: 15px;
+        }
+
+        .div3{
+            text-align: center;
+            width: 95%;
+            margin: 0%;
+            padding: 15px;
+        }
+
+        .ins{
+            width: 50px;
+            height: 25px;
+            text-align: center;
+            border-width: 2px;
+            border-color: black;
+            border-radius: 10px;
+        }
+
+        .insN{
+            width: 100px;
+            height: 25px;
+            text-align: center;
+            border-width: 2px;
+            border-color: black;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="div1">
+        <h1>Seleziona un attore da visualizzare</h1>
+        <div class="div2">
+            <form action="search_by_id.php" method="POST">
+                <label class="idAtt">ID attore</label>
+                <input type="text" name="codice" class="ins" placeholder="Es: 1" required>
+
+                <div class="div3">
+                    <input type="submit" value="Invia">
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="div1">
+        <h1>Seleziona un attore da visualizzare</h1>
+        <div class="div2">
+            <form action="search_by_name.php" method="POST">
+                <label class="idAtt">Nome attore</label>
+                <input type="text" name="nome" class="insN" placeholder="Es: Nicolas" required>
+
+                <div class="div3">
+                    <input type="submit" value="Invia">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,136 @@
+create table attori(
+    codAttore int not null,
+    nome varchar(20) not null,
+    annoNascita date not null,
+    nazionalita varchar(20) not null,
+    primary key (codAttore)
+);
+
+create table film(
+    codFilm int not null,
+    titolo varchar(20) not null,
+    annoProduzione date not null,
+    nazionalita varchar(20) not null,
+    regista varchar(20) not null,
+    genere varchar(20) not null,
+    primary key (codFilm)
+);
+
+create table sale(
+    codSala int not null,
+    posti int not null,
+    nome varchar(20) not null,
+    citta varchar(20) not null,
+    primary key (codSala)
+);
+
+create table recita(
+    codAttore int not null,
+    codFilm int not null,
+    primary key (codAttore, codFilm),
+    foreign key (codAttore) references attori(codAttore),
+    foreign key (codFilm) references film(codFilm)
+);
+
+create table proiezione(
+    codProiezione int not null,
+    dataProiezione date not null,
+    incasso int,
+    codFilm int not null,
+    codSala int not null,
+    primary key (codProiezione),
+    foreign key (codFilm) references film(codFilm),
+    foreign key (codSala) references sale(codSala)
+);
+
+--------------------------------------------------------
+
+insert into attori values(
+    1,
+    "Nicolas",
+    "2222-2-2",
+    "Nazione"
+);
+insert into attori values(
+    2,
+    "Keanu",
+    "2222-2-2",
+    "Nazione"
+);
+insert into attori values(
+    3,
+    "Russel",
+    "2222-2-2",
+    "Nazione"
+);
+
+-------------------------------------------------------------
+
+insert into film values(
+    1,
+    "Film western",
+    "2222-2-2",
+    "Nazione",
+    "Clint",
+    "Western"
+);
+
+insert into film values(
+    2,
+    "Film horror",
+    "2222-2-2",
+    "Nazione",
+    "King",
+    "Horror"
+);
+
+-----------------------------------------------------------
+
+insert into sale values(
+    1,
+    30,
+    "Royal",
+    "Civitavecchia"
+);
+
+insert into sale values(
+    2,
+    50,
+    "UCI",
+    "Roma"
+);
+
+-------------------------------------------------------
+
+insert into recita values(
+    1,
+    1
+);
+
+insert into recita values(
+    2,
+    2
+);
+
+insert into recita values(
+    3,
+    2
+);
+
+------------------------------------------------------
+
+insert into proiezione values (
+    1,
+    "2222-2-2",
+    1234,
+    1,
+    1
+);
+
+insert into proiezione values (
+    2,
+    "2222-2-2",
+    34232,
+    2,
+    2
+); 
