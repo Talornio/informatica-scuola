@@ -1,4 +1,4 @@
-package ilaria;
+package menu;
 
 import java.awt.*;
 import javax.swing.*;
@@ -8,7 +8,7 @@ public class Main
 
 	public static void main(String[] args) 
 	{
-		JFrame f = new JFrame("scelta menù");
+		JFrame f = new JFrame("scelta menÃ¹");
 		JPanel p1 = new JPanel(new BorderLayout());
 		JPanel p2 = new JPanel(new GridLayout(2,2));
 		JPanel p3 = new JPanel(new BorderLayout());
