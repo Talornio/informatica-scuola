@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrazione</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const loginForm = document.querySelector('.login-container form');
+
+      loginForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Raccogliere i valori dai campi del form
+        const email = loginForm.querySelector('input[type="email"]').value;
+        const password = loginForm.querySelector('input[type="password"]').value;
+
+        // Generare l'hash e il token
+        generateHash(email + password).then(token => {
+          // Invia il token al server
+          sendHashToServer(token);
+        });
+      });
+
+      // Funzione per generare un hash SHA-256
+      async function generateHash(data) {
+        const encoder = new TextEncoder();
+        const dataEncoded = encoder.encode(data);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', dataEncoded);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex;
+      }
+
+      // Funzione per inviare l'hash al server tramite la Fetch API
+      function sendHashToServer(token) {
+        fetch('process_login.php', { // Modifica con l'URL del tuo server PHP
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: 'token=' + encodeURIComponent(token)
+        })
+          .then(response => response.text())
+          .then(data => {
+            console.log('Risposta dal server:', data);
+            // Qui puoi gestire la risposta del server, come reindirizzare l'utente alla dashboard
+          })
+          .catch(error => {
+            console.error('Errore nella richiesta:', error);
+          });
+      }
+    });
+
+  </script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .button {
+      background-color: #5cb85c;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #4cae4c;
+    }
+
+    .login-link {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>Registrazione</h2>
+    <form>
+      <input type="text" placeholder="Nome Utente" required>
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <input type="password" placeholder="Conferma Password" required>
+      <button type="submit" class="button">Registrati</button>
+    </form>
+    <a href="../Login/login.html" class="login-link">Hai già un account? Accedi</a>
+  </div>
+</body>
+
+</html>
